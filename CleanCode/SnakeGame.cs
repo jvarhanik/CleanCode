@@ -4,6 +4,14 @@ using System.Threading;
 
 namespace SnakeGame
 {
+    enum Direction
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
     class SnakeGame
     {
         const int ScreenWidth = 32;
@@ -20,7 +28,7 @@ namespace SnakeGame
         List<int> yPositions = new List<int>();
         int berryX;
         int berryY;
-        string direction = "RIGHT";
+        Direction direction = Direction.RIGHT;
         int pixelsAdded = 0;
 
         public void Start()
@@ -118,14 +126,25 @@ namespace SnakeGame
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
-                if (key.Key == ConsoleKey.UpArrow && direction != "DOWN")
-                    direction = "UP";
-                if (key.Key == ConsoleKey.DownArrow && direction != "UP")
-                    direction = "DOWN";
-                if (key.Key == ConsoleKey.LeftArrow && direction != "RIGHT")
-                    direction = "LEFT";
-                if (key.Key == ConsoleKey.RightArrow && direction != "LEFT")
-                    direction = "RIGHT";
+                switch (key.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (direction != Direction.DOWN)
+                            direction = Direction.UP;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (direction != Direction.UP)
+                            direction = Direction.DOWN;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        if (direction != Direction.RIGHT)
+                            direction = Direction.LEFT;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (direction != Direction.LEFT)
+                            direction = Direction.RIGHT;
+                        break;
+                }
             }
         }
 
@@ -136,16 +155,16 @@ namespace SnakeGame
 
             switch (direction)
             {
-                case "UP":
+                case Direction.UP:
                     newY--;
                     break;
-                case "DOWN":
+                case Direction.DOWN:
                     newY++;
                     break;
-                case "LEFT":
+                case Direction.LEFT:
                     newX--;
                     break;
-                case "RIGHT":
+                case Direction.RIGHT:
                     newX++;
                     break;
             }
