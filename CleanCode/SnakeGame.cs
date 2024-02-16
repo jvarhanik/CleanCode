@@ -57,11 +57,9 @@ namespace SnakeGame
             xPositions.Clear();
             yPositions.Clear();
 
-            // Initialize snake head position
             xPositions.Add(ScreenWidth / 2);
             yPositions.Add(ScreenHeight / 2);
 
-            // Place initial berry
             PlaceBerry();
         }
 
@@ -94,12 +92,10 @@ namespace SnakeGame
 
         void DrawSnake()
         {
-            // Draw snake head
             Console.ForegroundColor = snakeHeadColor;
             Console.SetCursorPosition(xPositions[0], yPositions[0]);
             Console.Write("■");
 
-            // Draw snake body
             Console.ForegroundColor = snakeBodyColor;
             for (int i = 1; i < xPositions.Count; i++)
             {
@@ -169,11 +165,9 @@ namespace SnakeGame
                     break;
             }
 
-            // Move snake head
             xPositions.Insert(0, newX);
             yPositions.Insert(0, newY);
 
-            // Add pixels to snake body only in the first four turns
             if (pixelsAdded < 4)
             {
                 pixelsAdded++;
@@ -190,11 +184,9 @@ namespace SnakeGame
             int headX = xPositions[0];
             int headY = yPositions[0];
 
-            // Check if the snake hits the walls
             if (headX == 0 || headX == ScreenWidth - 1 || headY == 0 || headY == ScreenHeight - 1)
                 gameOver = true;
 
-            // Check if the snake hits itself
             for (int i = 1; i < xPositions.Count; i++)
             {
                 if (headX == xPositions[i] && headY == yPositions[i])
@@ -204,7 +196,6 @@ namespace SnakeGame
                 }
             }
 
-            // Check if the snake eats the berry
             if (headX == berryX && headY == berryY)
             {
                 score++;
